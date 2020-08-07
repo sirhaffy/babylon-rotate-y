@@ -1,49 +1,60 @@
+// * !! * Things on the ToDo list: 
+//     - Limit only to zoom a little and rotate in Y only.
+//     - Transparent ground plane with shadow.
+//     - Material that picks up clicked textures by user.
+//     - Slow animation to show that is can turn.
+
 window.addEventListener('DOMContentLoaded', function(){
 
-    var canvas = document.getElementById('renderCanvas'); // get the canvas DOM element
-    var engine = new BABYLON.Engine(canvas, true); // load the 3D engine
+    // Get the canvas DOM element
+    var canvas = document.getElementById('renderCanvas'); 
 
-    // # Scene
+    // Load the Babylon 3D engine
+    var engine = new BABYLON.Engine(canvas, true); 
+
     var createScene = function(){
 
-        var scene = new BABYLON.Scene(engine);
+        // # Scene setup
+            var scene = new BABYLON.Scene(engine);
 
             // var camera = new BABYLON.FreeCamera('camera1', new BABYLON.Vector3(0, 5,-10), scene); // XYZ
-            var camera = new BABYLON.ArcRotateCamera("Camera", 0.7, 0.5, 100, new BABYLON.Vector3.Zero(), scene);
+            var camera = new BABYLON.ArcRotateCamera("Camera", 0, 5, 100, new BABYLON.Vector3.Zero(), scene);
             camera.attachControl(canvas, true);
 
             camera.setTarget(BABYLON.Vector3.Zero()); // target the camera to scene origin
             camera.attachControl(canvas, false); // attach or add the camera to the canvas
 
-            // # Lights
+        // # Lights
             var light = new BABYLON.HemisphericLight('light1', new BABYLON.Vector3(0,1,0), scene); // aiming 0,1,0 - meaning, to the sky
 
-            // # Geometry
+        // # Geometry
 
-            //Box
-            // var sphere = BABYLON.Mesh.CreateSphere('sphere1', 16, 2, scene); // name, segment, diameter, scene, updatable, sideOrientation
-            //   sphere.position.y = 1;// move the sphere upward 1/2 of its height
+            // OBJ Import
 
-            // var box1 = BABYLON.Mesh.CreateBox("Box1", 10.0, scene);
-            // box1.position.x = -20;
+                // Remote
+                // BABYLON.SceneLoader.ImportMesh("", "https://raw.githubusercontent.com/sirhaffy/babylon/master/assets/models/", "Knapp.01.006.baked.size.obj", scene, function (meshes) {          
+                //     scene.createDefaultCameraOrLight(true, true, true);
+                //     // scene.createDefaultEnvironment();
+                //     meshes.scaling = new BABYLON.Vector3(10, 10, 10);
+                // });
 
+                // Local
+                BABYLON.SceneLoader.ImportMesh("", "./assets/models/", "Knapp.01.006.baked.size.obj", scene, function (meshes) {          
+                    scene.createDefaultCameraOrLight(true, true, true);
+                    // scene.createDefaultEnvironment();
+                    meshes.scaling = new BABYLON.Vector3(10, 10, 10);
+                });
 
-            // Ground plane
-            // var ground = BABYLON.Mesh.CreateGround('ground1', 6, 6, 2, scene);// create a built-in "ground" shape;
+        // # Materials
 
+        // * !! * ToDo - Here we shall have a material that picks up clicked textures.
 
-            // OBJ
-            BABYLON.SceneLoader.ImportMesh("", "https://raw.githubusercontent.com/sirhaffy/babylon/master/", "Knapp.01.006.baked.size.obj", scene, function (meshes) {          
-                scene.createDefaultCameraOrLight(true, true, true);
-                // scene.createDefaultEnvironment();
-                meshes.scaling = new BABYLON.Vector3(10, 10, 10);
-            });
-
-            // # Materials
             // var materialBox = new BABYLON.StandardMaterial("texture1", scene);
             // materialBox.diffuseColor = new BABYLON.Color3(0, 1, 0);//Green
 
-            // #Animation
+        // #Animation
+        // * !! * ToDo - Here we shall have a slow animation that turns the models in Y.
+
             //Create a scaling animation at 30 FPS
 
             // var animationBox = new BABYLON.Animation("tutoAnimation", "scaling.x", 30, BABYLON.Animation.ANIMATIONTYPE_FLOAT, BABYLON.Animation.ANIMATIONLOOPMODE_CYCLE);
@@ -85,6 +96,8 @@ window.addEventListener('DOMContentLoaded', function(){
                 //Applying materials
                 // box1.material = materialBox;
 
+
+        // # Scene launch
             return scene;
             }
 
@@ -95,7 +108,7 @@ window.addEventListener('DOMContentLoaded', function(){
                 scene.render();
             });
 
-            // the canvas/window resize event handler
+            // The canvas/window resize event handler, make a wrapper div.
             window.addEventListener( 'resize', function() {
                 engine.resize();
             });
