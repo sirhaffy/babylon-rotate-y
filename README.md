@@ -1,7 +1,7 @@
 # babylon-rotate-y
 
-Testing out Babylon JS, want to:\ 
-Import OBJ from Blender that is uploaded in Woocommerce.\
-Rotate object and not the camera.\
-Groundplane that recived shadow.\
-Change texture file in material by clicking in Woocommerce.\
+Testing out Babylon JS, want to:<br>
+Import OBJ from Blender that is uploaded in Woocommerce.<br>
+Rotate object and not the camera.<br>
+Groundplane that recived shadow.<br>
+Change texture file in material by clicking in Woocommerce.
